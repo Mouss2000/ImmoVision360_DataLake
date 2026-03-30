@@ -1,0 +1,53 @@
+# ============================================
+# DONNÉES LOURDES (ne pas uploader sur GitHub)
+# ============================================
+
+# Images (garder le dossier, ignorer le contenu)
+data/raw/images/*
+!data/raw/images/.gitkeep
+
+# Textes (garder le dossier, ignorer le contenu)
+data/raw/texts/*
+!data/raw/texts/.gitkeep
+
+# Fichiers CSV volumineux
+data/raw/tabular/*.csv
+
+# ============================================
+# ENVIRONNEMENT VIRTUEL
+# ============================================
+myenv/
+venv/
+env/
+.env
+
+# ============================================
+# PYTHON
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# ============================================
+# JUPYTER NOTEBOOK
+# ============================================
+.ipynb_checkpoints/
+
+# ============================================
+# LOGS
+# ============================================
+*.log
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+
+# ============================================
+# IDE
+# ============================================
+.vscode/
+.idea/
+
