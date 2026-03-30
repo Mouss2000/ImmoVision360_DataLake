@@ -73,7 +73,6 @@ ImmoVision360_DataLake/
 - ~500 MB d'espace disque
 
 ### Installation
-```bash
 # 1. Cloner le repository
 git clone https://github.com/VOTRE_USERNAME/ImmoVision360_DataLake.git
 cd ImmoVision360_DataLake
@@ -119,35 +118,37 @@ Notes Importantes
     * Idempotence : Les scripts peuvent être interrompus (Ctrl+C) et relancés. Les fichiers déjà traités sont automatiquement ignorés.
     * Rate Limiting : Délai de 0.5s entre chaque requête pour respecter les serveurs.
 
-#4. Audit des Données (Résultats du Sanity Check)
-#4.1         Périmètre Analysé
+# 4. Audit des Données (Résultats du Sanity Check)
+# 4.1         Périmètre Analysé
 *Métrique	                        Valeur
-*Quartier ciblé Élysée
+*Quartier ciblé                     Élysée
 *Total annonces Paris	            82 353
 *Annonces dans le périmètre Élysée	2 625
 *Annonces Élysée avec commentaires	2 003
  
-#4.2 Résultats - Images
-*Métrique	            Valeur
-*Images attendues	    2 625
-*Images téléchargées	2 489
-*Images manquantes	    136
-*Taux de réussite	    94.8%
+# 4.2 Résultats - Images
+*Métrique	           | Valeur|
+-----------------------|-------|
+*Images attendues	   | 2 625 |
+*Images téléchargées   |2 489  |
+*Images manquantes	   | 136   |
+*Taux de réussite	   | 94.8%
 
-#4.3 Résultats - Textes
-*Métrique	           Valeur
-*Fichiers attendus	   2 003
-*Fichiers créés	       1 905
-*Fichiers manquants	   98
-*Taux de réussite	   95.1%
+# 4.3 Résultats - Textes
+*Métrique	           |Valeur|
+-----------------------|------|
+*Fichiers attendus	   |2 003 | 
+*Fichiers créés	       |1 905 |
+*Fichiers manquants	   |98    |
+*Taux de réussite	   |95.1% |
 
-#4.4 Cohérence Croisée
+# 4.4 Cohérence Croisée
 *Métrique	                Valeur	    Explication
 *IDs avec image ET texte	1 867	    Données complètes
 *Images sans texte	        622	   Annonces sans aucun commentaire
 *Textes sans image	         98	       Images non téléchargées
 
-#4.5 Verdict Global
+# 4.5 Verdict Global
 📂 Structure      : ✅ OK
 📄 Fichiers CSV   : ✅ OK
 🖼️ Images         : ✅ 94.8% (136 manquantes)
@@ -155,9 +156,10 @@ Notes Importantes
 🔗 Cohérence      : ⚠️ 622 images sans texte (comportement attendu)
 
 ## 5. Analyse des Pertes
-#5.1 Images Manquantes (136 sur 2 625 = 5.2%)
+# 5.1 Images Manquantes (136 sur 2 625 = 5.2%)
 
 L'écart entre le nombre d'annonces et le nombre d'images téléchargées s'explique par plusieurs facteurs techniques :
+
 # A. Liens Expirés (Cause Principale - ~70%)
 
 Les URLs d'images dans le fichier listings.csv pointent vers des CDN (Content Delivery Networks) Airbnb. Entre la date d'extraction du dataset par Inside Airbnb et notre téléchargement, certains liens sont devenus invalides :
@@ -210,7 +212,6 @@ Images	2 625	2 489	94.8%	✅ Acceptable
 Textes	2 003	1 905	95.1%	✅ Acceptable
 
 # 6. Configuration Technique
-
 # Images
 TARGET_NEIGHBOURHOOD = "Élysée"
 NEIGHBOURHOOD_COLUMN = "neighbourhood_cleansed"
@@ -229,10 +230,9 @@ Rate Limiting	0.5s entre requêtes
 User-Agent	ImmoVision360/1.0 (Educational)
 Licence	CC0 1.0 (Inside Airbnb)
 
- 7. Annexes
+# 7. Annexes
 
  Dépendances
-
 pandas>=2.0.0
 numpy>=1.24.0
 requests>=2.28.0
@@ -241,5 +241,5 @@ tqdm>=4.65.0
 jupyter>=1.0.0
 
 
-MOUSSAOUI Ismail
-3/30/2026
+# MOUSSAOUI Ismail
+# 3/30/2026
