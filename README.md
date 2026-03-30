@@ -26,31 +26,33 @@ Collecter, organiser et auditer les données Airbnb de Paris (images et textes) 
 ---
 
 ## 📂 2. Structure du Répertoire
+```
 ImmoVision360_DataLake/
 │
 ├── data/
-│ └── raw/
-│ ├── tabular/
-│ │ ├── listings.csv # Catalogue des annonces Airbnb
-│ │ └── reviews.csv # Commentaires des utilisateurs
-│ │
-│ ├── images/
-│ │ ├── <listing_id>.jpg # Photos des appartements
-│ │ └── ... # Format: 320x320 pixels, JPEG
-│ │
-│ └── texts/
-│ ├── <listing_id>.txt # Commentaires regroupés par annonce
-│ └── ... # Format: UTF-8
+│   └── raw/
+│       ├── tabular/
+│       │   ├── listings.csv        # Catalogue des annonces Airbnb
+│       │   └── reviews.csv         # Commentaires des utilisateurs
+│       │
+│       ├── images/
+│       │   ├── <listing_id>.jpg    # Photos des appartements
+│       │   └── ...                 # Format: 320x320 pixels, JPEG
+│       │
+│       └── texts/
+│           ├── <listing_id>.txt    # Commentaires regroupés par annonce
+│           └── ...                 # Format: UTF-8
 │
 ├── scripts/
-│ ├── 00_data.ipynb # Notebook d'exploration des données
-│ ├── 01_ingestion_images.py # Script de téléchargement des images
-│ ├── 02_ingestion_textes.py # Script d'extraction des textes
-│ └── 03_sanity_check.py # Script d'audit qualité
+│   ├── 00_data.ipynb               # Notebook d'exploration des données
+│   ├── 01_ingestion_images.py      # Script de téléchargement des images
+│   ├── 02_ingestion_textes.py      # Script d'extraction des textes
+│   └── 03_sanity_check.py          # Script d'audit qualité
 │
-├── .gitignore # Fichiers exclus de Git
-├── README.md # Documentation (ce fichier)
-└── requirements.txt # Dépendances Python
+├── .gitignore                      # Fichiers exclus de Git
+├── README.md                       # Documentation (ce fichier)
+└── requirements.txt                # Dépendances Python
+```
 
 
 ### Convention de Nommage
