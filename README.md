@@ -83,17 +83,20 @@ cd ImmoVision360_DataLake
 python -m venv myenv
 
 # 3. Activer l'environnement
-# Windows (PowerShell)
+Windows (PowerShell)
+
 .\myenv\Scripts\Activate.ps1
-# Windows (CMD)
+
+ Windows (CMD)
 myenv\Scripts\activate
 # Linux/Mac
+
 source myenv/bin/activate
 
 # 4. Installer les dépendances
 pip install -r requirements.txt
 
-## Télécharger les Données Sources
+ Télécharger les Données Sources
 
     Aller sur Inside Airbnb - Paris
     Télécharger listings.csv.gz et reviews.csv.gz
@@ -104,16 +107,16 @@ pip install -r requirements.txt
 
 # Étape 1 : Ingestion des images (~30 minutes)
 python scripts/01_ingestion_images.py
-# → Répondre "oui" pour confirmer les conditions éthiques
-# → Les images sont téléchargées dans data/raw/images/
+→ Répondre "oui" pour confirmer les conditions éthiques
+→ Les images sont téléchargées dans data/raw/images/
 
 # Étape 2 : Ingestion des textes (~2 minutes)
 python scripts/02_ingestion_textes.py
-# → Les fichiers texte sont créés dans data/raw/texts/
+ → Les fichiers texte sont créés dans data/raw/texts/
 
 # Étape 3 : Audit qualité (~1 minute)
 python scripts/03_sanity_check.py
-# → Génère un rapport complet de l'état du Data Lake
+ → Génère un rapport complet de l'état du Data Lake
 
 Notes Importantes
 
@@ -129,33 +132,36 @@ Notes Importantes
 *Annonces Élysée avec commentaires	2 003
  
 # 4.2 Résultats - Images
-*Métrique	           | Valeur|
+Métrique	           | Valeur|
 -----------------------|-------|
-*Images attendues	   | 2 625 |
-*Images téléchargées   |2 489  |
-*Images manquantes	   | 136   |
-*Taux de réussite	   | 94.8%
+Images attendues	   | 2 625 |
+Images téléchargées   |2 489  |
+Images manquantes	   | 136   |
+Taux de réussite	   | 94.8%
 
 # 4.3 Résultats - Textes
-*Métrique	           |Valeur|
+Métrique	           |Valeur|
 -----------------------|------|
-*Fichiers attendus	   |2 003 | 
-*Fichiers créés	       |1 905 |
-*Fichiers manquants	   |98    |
-*Taux de réussite	   |95.1% |
+Fichiers attendus	   |2 003 | 
+Fichiers créés	       |1 905 |
+Fichiers manquants	   |98    |
+Taux de réussite	   |95.1% |
 
 # 4.4 Cohérence Croisée
-*Métrique	                Valeur	    Explication
-*IDs avec image ET texte	1 867	    Données complètes
-*Images sans texte	        622	   Annonces sans aucun commentaire
-*Textes sans image	         98	       Images non téléchargées
+| Métrique | Valeur | Explication |
+|----------|--------|-------------|
+| IDs avec image ET texte | 1 867 | Données complètes |
+| Images sans texte | 622 | Annonces sans aucun commentaire |
+| Textes sans image | 98 | Images non téléchargées |
 
 # 4.5 Verdict Global
-📂 Structure      : ✅ OK
-📄 Fichiers CSV   : ✅ OK
-🖼️ Images         : ✅ 94.8% (136 manquantes)
-📝 Textes         : ✅ 95.1% (98 manquants)
-🔗 Cohérence      : ⚠️ 622 images sans texte (comportement attendu)
+| Élément | Statut | Détails |
+|---------|--------|---------|
+| 📂 Structure | ✅ OK | - |
+| 📄 Fichiers CSV | ✅ OK | - |
+| 🖼️ Images | ✅ 94.8% | 136 manquantes |
+| 📝 Textes | ✅ 95.1% | 98 manquants |
+| 🔗 Cohérence | ⚠️ | 622 images sans texte (attendu) |
 
 ## 5. Analyse des Pertes
 # 5.1 Images Manquantes (136 sur 2 625 = 5.2%)
@@ -166,9 +172,9 @@ L'écart entre le nombre d'annonces et le nombre d'images téléchargées s'expl
 
 Les URLs d'images dans le fichier listings.csv pointent vers des CDN (Content Delivery Networks) Airbnb. Entre la date d'extraction du dataset par Inside Airbnb et notre téléchargement, certains liens sont devenus invalides :
 
-    Annonces supprimées : L'hôte a retiré son annonce de la plateforme
-    Photos remplacées : L'hôte a mis à jour ses photos, générant de nouvelles URLs
-    Comptes désactivés : Le compte de l'hôte n'existe plus
+ Annonces supprimées : L'hôte a retiré son annonce de la plateforme
+Photos remplacées : L'hôte a mis à jour ses photos, générant de nouvelles URLs
+Comptes désactivés : Le compte de l'hôte n'existe plus
 
 Ces liens retournent une erreur HTTP 404 (Not Found).
 # B. Erreurs Serveur Temporaires (~15%)
@@ -193,15 +199,15 @@ Ce n'est pas une perte technique mais un comportement attendu :
 
 Ces 622 annonces :
 
-    ✅ Existent dans listings.csv
-    ✅ Ont une image téléchargée
-    ❌ N'ont aucune review dans reviews.csv
+✅ Existent dans listings.csv
+✅ Ont une image téléchargée
+❌ N'ont aucune review dans reviews.csv
 
 Causes métier :
 
-    Annonces récentes (pas encore de clients)
-    Annonces peu populaires
-    Nouvelles annonces d'hôtes
+récentes (pas encore de clients)
+Annonces peu populaires
+Nouvelles annonces d'hôtes
 
 Décision technique : Aucun fichier .txt n'est créé pour ces annonces car il n'y a pas de contenu textuel à y stocker.
 5.3 Textes Sans Image (98 cas)
@@ -209,9 +215,10 @@ Décision technique : Aucun fichier .txt n'est créé pour ces annonces car il n
 Ces annonces ont des commentaires mais leur image n'a pas pu être téléchargée (liens morts). Ce sont des cas d'incohérence croisée qui n'empêchent pas l'analyse NLP sur les textes.
 
 # 5.4 Bilan de Qualité
-Type	Attendu	Obtenu	Taux	Verdict
-Images	2 625	2 489	94.8%	✅ Acceptable
-Textes	2 003	1 905	95.1%	✅ Acceptable
+| Type | Attendu | Obtenu | Taux | Verdict |
+|------|---------|--------|------|---------|
+| Images | 2 625 | 2 489 | 94.8% | ✅ Acceptable |
+| Textes | 2 003 | 1 905 | 95.1% | ✅ Acceptable |
 
 # 6. Configuration Technique
 # Images
@@ -226,11 +233,12 @@ MIN_REVIEWS_PER_LISTING = 1
 ENCODING = "UTF-8"
 
 # Conformité Éthique
-Règle	Implémentation
-robots.txt	Vérifié manuellement
-Rate Limiting	0.5s entre requêtes
-User-Agent	ImmoVision360/1.0 (Educational)
-Licence	CC0 1.0 (Inside Airbnb)
+| Règle | Implémentation |
+|-------|----------------|
+| robots.txt | Vérifié manuellement |
+| Rate Limiting | 0.5s entre requêtes |
+| User-Agent | `ImmoVision360/1.0 (Educational)` |
+| Licence | CC0 1.0 (Inside Airbnb) |
 
 # 7. Annexes
 
