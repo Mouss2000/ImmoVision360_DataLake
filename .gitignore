@@ -51,3 +51,16 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Environment variables (NEVER commit!)
+.env
+
+# Data files
+data/raw/images/*
+data/raw/texts/*
+data/raw/tabular/*.csv
+data/processed/*.csv
+
+# Checkpoints
+data/processed/*checkpoint*.csv
+
+
