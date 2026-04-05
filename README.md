@@ -413,9 +413,9 @@ Avec les données chargées dans PostgreSQL, les activités suivantes sont possi
 
 ## 📝 Auteurs & Timestamps
 
-**Développé par:** ImmoVision360 Team  
-**Phase 2 Livraison:** Mars 2024  
-**Status:** ✅ PRODUCTION-READY
+**Développé par:** MOUSSAOUI Ismail 
+**Phase 2 Livraison:** AVRIL 2026
+
 
 ---
 
