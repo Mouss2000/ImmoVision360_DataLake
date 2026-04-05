@@ -148,8 +148,6 @@ SELECT COUNT(*) FROM elysee_listings_silver;
 - **[README_DATAPROFILING.md](README_DATAPROFILING.md)** - QA profil données (filtered_elysee.csv)
 - **[README_TRANSFORM.md](README_TRANSFORM.md)** - Nettoyage données + AI features (Gemini)
 - **[README_LOAD.md](README_LOAD.md)** - PostgreSQL DWH + screenshot preuve
-- **[README_SCRIPTS_04_05_06.md](README_SCRIPTS_04_05_06.md)** - Vue d'ensemble EN
-- **[README_SCRIPTS_04_05_06_FR.md](README_SCRIPTS_04_05_06_FR.md)** - Vue d'ensemble FR
 
 ---
 
