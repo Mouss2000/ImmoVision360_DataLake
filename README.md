@@ -424,8 +424,3 @@ Avec les données chargées dans PostgreSQL, les activités suivantes sont possi
 - **Données source:** [Inside Airbnb](https://insideairbnb.com/) - CC0 1.0 Universal
 - **Code:** À définir (suggestions: MIT, Apache 2.0)
 
----
-
-**Repository URL:** `https://github.com/YOUR_USERNAME/ImmoVision360_DataLake`  
-**Remplacer `YOUR_USERNAME` par votre GitHub username avant submission**
-
