@@ -219,10 +219,8 @@ docs/screenshots/postgres_data_warehouse.png
 3. Right-click → View/Edit Data
 4. Print screen (Shift+Print) → Save as png
 
-**Liaison dans README:**
-```markdown
+**Liaison dans README :**
 ![Data Warehouse PostgreSQL](docs/screenshots/postgres_data_warehouse.png)
-```
 
 ---
 
