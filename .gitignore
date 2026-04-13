@@ -2,19 +2,22 @@
 # DONNÉES LOURDES (ne pas uploader sur GitHub)
 # ============================================
 
-# Images (garder le dossier, ignorer le contenu)
+# Images (garder le dossier via .gitkeep, ignorer le contenu)
 data/raw/images/*
 !data/raw/images/.gitkeep
 
-# Textes (garder le dossier, ignorer le contenu)
+# Textes (garder le dossier via .gitkeep, ignorer le contenu)
 data/raw/texts/*
 !data/raw/texts/.gitkeep
 
-# Fichiers CSV volumineux
+# Fichiers CSV (Raw, Processed et DataWarehouse)
 data/raw/tabular/*.csv
+data/processed/*.csv
+data/processed/*checkpoint*.csv
+DataWarehouse/postgres/*.csv
 
 # ============================================
-# ENVIRONNEMENT VIRTUEL
+# ENVIRONNEMENT VIRTUEL & SECRETS
 # ============================================
 myenv/
 venv/
@@ -22,45 +25,19 @@ env/
 .env
 
 # ============================================
-# PYTHON
+# PYTHON & IDE
 # ============================================
 __pycache__/
 *.py[cod]
 *$py.class
 .Python
-
-# ============================================
-# JUPYTER NOTEBOOK
-# ============================================
-.ipynb_checkpoints/
-
-# ============================================
-# LOGS
-# ============================================
-*.log
-
-# ============================================
-# OS
-# ============================================
-.DS_Store
-Thumbs.db
-
-# ============================================
-# IDE
-# ============================================
 .vscode/
 .idea/
 
-# Environment variables (NEVER commit!)
-.env
-
-# Data files
-data/raw/images/*
-data/raw/texts/*
-data/raw/tabular/*.csv
-data/processed/*.csv
-
-# Checkpoints
-data/processed/*checkpoint*.csv
-
-
+# ============================================
+# JUPYTER & OS
+# ============================================
+.ipynb_checkpoints/
+*.log
+.DS_Store
+Thumbs.db

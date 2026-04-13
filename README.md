@@ -1,19 +1,19 @@
 # 🏠 ImmoVision360 - Data Lake & ETL Pipeline
 
-**Phase 1 ✅ + Phase 2 ✅** - Livrable: Pipeline ETL Complet avec PostgreSQL Data Warehouse
+**Phase 1 ✅ + Phase 2 ✅ + Phase 3 ✅** - Livrable: Data Warehouse + EDA (Mairie de Paris)
 
 ---
 
 ## 📋 Vue d'Ensemble
 
-**ImmoVision360** est un projet d'analyse immobilière basé sur l'Intelligence Artificielle. Ce repository contient le **Data Lake structuré** et le **pipeline ETL complet** (Extract, Transform, Load) pour traiter les données Airbnb de Paris.
+**ImmoVision360** est un projet d'analyse immobilière basé sur l'Intelligence Artificielle. Ce repository contient le **Data Lake structuré**, le **pipeline ETL complet** (Extract, Transform, Load) et l'**Analyse Exploratoire (EDA)** pour traiter les données Airbnb du quartier Élysée à Paris.
 
-### 🎯 Mission Phase 2
-Créer un pipeline ETL opérationnel qui :
-1. **Extrait** les données pertinentes du quartier Élysée (~2.6K annonces)
-2. **Transforme** et enrich avec features IA (Vision + NLP via Gemini)
-3. **Charge** dans PostgreSQL pour analytics downstream
-4. **Documente** tous les choix & hypothèses de recherche
+### 🎯 Mission Phase 3 (EDA)
+Transformer les données consolidées en insights pour la Mairie de Paris :
+1. **Dictionnaire des Variables** : Compréhension des colonnes (scores IA, mappings codes).
+2. **Analyse Univariée** : Distribution des annonces, disponibilité, et scores.
+3. **Analyse Bivariée** : Croisement des données (ex: Professionnalisation vs Disponibilité).
+4. **Feuille de Route Métier** : 5 questions stratégiques sur l'impact local.
 
 ---
 
@@ -24,130 +24,74 @@ ImmoVision360_DataLake/
 │
 ├── data/
 │   ├── raw/                          # Bronze Zone
-│   │   ├── tabular/
-│   │   │   ├── listings.csv
-│   │   │   └── reviews.csv
-│   │   ├── images/  
-│   │   └── texts/
-│   │
 │   └── processed/                    # Silver Zone
-│       ├── filtered_elysee.csv      # Après Extract (04)
-│       ├── transformed_elysee.csv   # Après Transform (05)
-│       └── transform_checkpoint.csv
+│
+├── DataWarehouse/                    # Assets SQL & CSV
+│   ├── postgres/                     # Table finale (elysee_tabular.csv)
+│   └── sql/                          # Scripts d'import PostgreSQL
 │
 ├── scripts/
 │   ├── Phase 1 (Ingestion)
-│   │   ├── 00_data.ipynb
-│   │   ├── 01_ingestion_images.py
-│   │   ├── 02_ingestion_textes.py
-│   │   └── 03_sanity_check.py
+│   │   ├── 00_data.ipynb, 01_ingestion_images.py, etc.
 │   │
-│   ├── Phase 2 (ETL) ← SCRIPTS PRINCIPAUX
-│   │   ├── 04_extract.py         
-│   │   ├── 05_transform.py       
-│   │   └── 06_load.py            
+│   ├── Phase 2 (ETL)
+│   │   ├── 04_extract.py, 05_transform.py, 06_load.py
+│   │
+│   ├── Phase 3 (EDA) ← NOUVEAU
+│   │   └── 07_eda.ipynb              # Notebook d'analyse exploratoire
 │   │
 │   └── READMEs
-│       ├── README_EXTRACT.md
-│       ├── README_DATAPROFILING.md
-│       ├── README_TRANSFORM.md
-│       ├── README_LOAD.md
-│       ├── README_SCRIPTS_04_05_06.md
-│       └── README_SCRIPTS_04_05_06_FR.md
+│       ├── README_EXTRACT.md, README_TRANSFORM.md, etc.
+│       └── README_EDA.md             # Documentation Phase 3
 │
 ├── docs/
 │   └── screenshots/
-│       └── postgres_data_warehouse.png
 │
-├── .env.example
-├── .env                             [JAMAIS commité]
-├── .gitignore
-├── requirements.txt
-└── README.md
+├── .env, .gitignore, requirements.txt, README.md
+└── README_EDA.md
 ```
 
 ---
 
-## 🚀 Démarrage Rapide Phase 2
+## 🚀 Démarrage Rapide Phase 3
 
-### 1. Cloner & Setup
+### 1. Importer les données dans PostgreSQL
+Si vous ne l'avez pas fait en Phase 2, utilisez les scripts du dossier `DataWarehouse` :
 
 ```bash
-git clone https://github.com/<votre-username>/ImmoVision360_DataLake.git
-cd ImmoVision360_DataLake
-
-python -m venv myenv
-.\myenv\Scripts\Activate.ps1    # Windows PowerShell
-source myenv/bin/activate       # Linux/macOS
-
-pip install -r requirements.txt
+cd DataWarehouse/sql/postgres
+psql -U postgres -d immovision -f import_elysee_tabular.sql
 ```
 
-### 2. Configurer Environment
-
+### 2. Exécuter l'Analyse (EDA)
+Ouvrez le notebook dans VS Code :
 ```bash
-cp .env.example .env
-
-# Éditer .env avec:
-# - GEMINI_API_KEY=<votre_clé>
-# - DB_HOST=localhost
-# - DB_USER=postgres
-# - DB_PASSWORD=<votre_mdp>
-```
-
-### 3. Préparer PostgreSQL
-
-```bash
-# Une seule fois:
-psql -U postgres
-CREATE DATABASE immovision_db;
-\q
-```
-
-### 4. Exécuter le Pipeline ETL
-
-```bash
-cd scripts
-
-# Tout en une ligne:
-python 04_extract.py && python 05_transform.py && python 06_load.py
-
-# OU séquentiellement:
-python 04_extract.py       # ~10 sec  → filtered_elysee.csv
-python 05_transform.py     # ~5-10 min → transformed_elysee.csv
-python 06_load.py          # ~30 sec  → PostgreSQL
-```
-
-### 5. Vérifier Succès
-
-```bash
-psql -U postgres -d immovision_db
-
-# Une fois connecté:
-SELECT COUNT(*) FROM elysee_listings_silver;
--- Résultat: 2625
-
-\q
+# Ouvrir scripts/07_eda.ipynb
+# Sélectionner le kernel 'myenv'
+# Exécuter les cellules
 ```
 
 ---
 
-## 📚 Documentation Phase 2
+## 📚 Documentation & Rapports
 
-### Scripts Principaux (Phase 2 ETL)
+- **[README_EDA.md](README_EDA.md)** - Détails des questions métier & méthodologie EDA.
+- **[README_TRANSFORM.md](README_TRANSFORM.md)** - Logique de génération des scores IA (Gemini).
+- **[README_LOAD.md](README_LOAD.md)** - Structure du Data Warehouse.
 
-| # | Script | Input | Output | Durée | Doc |
-|---|--------|-------|--------|-------|-----|
-| 04 | **EXTRACT** | listings.csv (~90K) | filtered_elysee.csv (2.6K) | ~10s | [README_EXTRACT.md](README_EXTRACT.md) |
-| 05 | **TRANSFORM** | filtered_elysee.csv + images + textes | transformed_elysee.csv (22 cols) | ~5-10m | [README_TRANSFORM.md](README_TRANSFORM.md) |
-| 06 | **LOAD** | transformed_elysee.csv | PostgreSQL table | ~30s | [README_LOAD.md](README_LOAD.md) |
+---
 
-### Documentation Spécialisée
+## 📊 Résultats Phase 3
 
-- **[README_EXTRACT.md](README_EXTRACT.md)** - Hypothèses de recherche & mapping features
-- **[README_DATAPROFILING.md](README_DATAPROFILING.md)** - QA profil données (filtered_elysee.csv)
-- **[README_TRANSFORM.md](README_TRANSFORM.md)** - Nettoyage données + AI features (Gemini)
-- **[README_LOAD.md](README_LOAD.md)** - PostgreSQL DWH + screenshot preuve
+### Questions Métier traitées (Top 5)
+
+| Question | Résultat Attendu |
+|----------|------------------|
+| **Professionnalisation** | Distribution des hôtes multi-annonces (Concentration). |
+| **Intensité (Hôtels)** | Analyse des logements > 120 jours de disponibilité. |
+| **Hôtélisation** | Lien entre standardisation image et impact quartier. |
+| **Réactivité** | Comparaison de la vitesse de réponse par type de chambre. |
+| **Performance** | Corrélation entre taux de réponse et disponibilité. |
 
 ---
 
